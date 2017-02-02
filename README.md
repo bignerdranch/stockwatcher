@@ -1,6 +1,6 @@
 
 ## STOCKWATCHER,
-### The modern android development stack showcase!
+### The postmodern android development stack showcase from the future!
 
 ### showcase items
 - rxjava2
@@ -8,8 +8,8 @@
 - dagger2
 - lombok code gen
 - databinding
-- the _perfect_ rxjava2 + retrofit2 networking and caching setup!
-- how to handle lifecycle configuration changes with network request resume and caching!
+- the _perfect_ rxjava2 + retrofit2 networking and caching setup
+- how to handle ui lifecyle & device configuration changes with network request resume and caching!
 - other goodies!
 
 

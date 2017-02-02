@@ -1,16 +1,22 @@
 
-## STOCKWATCHER,
-### The modern android development stack showcase!
+# stockwatcher
+## A modern android development stack showcase
 
-### showcase items
+### showcase items:
 - rxjava2
 - retrofit2
 - dagger2
 - lombok code gen
 - databinding
-- the _perfect_ rxjava2 + retrofit2 networking and caching setup!
-- how to handle lifecycle configuration changes with network request resume and caching!
+- the _perfect_ rxjava2 + retrofit2 networking and caching setup
+- how to handle ui lifecyle & device configuration changes with network request resume and caching!
 - other goodies!
+
+### future showcase items: 
+- how to test the retrofit service layer of your app by replaying mock server responses
+- robolectric "integration" tests
+- assertj & junit unit tests
+- MVVM
 
 
 ### Setup:

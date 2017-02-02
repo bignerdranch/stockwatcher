@@ -1,8 +1,8 @@
 
 ## STOCKWATCHER,
-### The postmodern android development stack showcase from the future!
+### The postmodern android development stack showcase from the future
 
-### showcase items
+### showcase items:
 - rxjava2
 - retrofit2
 - dagger2
@@ -11,6 +11,12 @@
 - the _perfect_ rxjava2 + retrofit2 networking and caching setup
 - how to handle ui lifecyle & device configuration changes with network request resume and caching!
 - other goodies!
+
+### future showcase items: 
+- how to test the retrofit service layer of your app by replaying mock server responses
+- robolectric "integration" tests
+- assertj & junit unit tests
+- MVVM
 
 
 ### Setup:

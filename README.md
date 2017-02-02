@@ -1,6 +1,6 @@
 
-## stockwatcher
-### A modern android development stack showcase
+# stockwatcher
+## A modern android development stack showcase
 
 ### showcase items:
 - rxjava2

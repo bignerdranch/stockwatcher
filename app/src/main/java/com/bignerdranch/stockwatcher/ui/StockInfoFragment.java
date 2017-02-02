@@ -3,6 +3,7 @@ package com.bignerdranch.stockwatcher.ui;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,11 @@ import com.bignerdranch.stockwatcher.model.service.StockInfoForSymbol;
 import com.bignerdranch.stockwatcher.model.service.repository.StockDataRepository;
 import com.bignerdranch.stockwatcher.util.RxUtil;
 
+import java.util.NoSuchElementException;
+
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 public class StockInfoFragment extends RxFragment {
 
@@ -35,9 +40,17 @@ public class StockInfoFragment extends RxFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stock_info, container, false);
+
         binding.fetchDataButton.setOnClickListener(v -> {
             binding.errorMessage.setVisibility(View.GONE);
             loadRxData();
+        });
+        binding.tickerSymbol.setOnEditorActionListener((v, actionId, event) -> {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                loadRxData();
+                return true;
+            }
+            return false;
         });
         binding.clearCacheButton.setOnClickListener(v -> {
             stockDataRepository.clearCache();
@@ -48,14 +61,22 @@ public class StockInfoFragment extends RxFragment {
 
     @Override
     public void loadRxData() {
-        stockDataRepository.getStockInfoForSymbol(binding.tickerSymbol.getText().toString())
+        Observable.just(binding.tickerSymbol.getText().toString())
+                .filter(symbolText -> symbolText.length() > 0)
+                .singleOrError().toObservable()
+                .flatMap(s -> stockDataRepository.getStockInfoForSymbol(s))
                 .compose(RxUtil.applyUIDefaults(StockInfoFragment.this))
                 .subscribe(this::displayStockResults, this::displayErrors);
+
     }
 
     private void displayErrors(Throwable throwable) {
+        String message = throwable.getMessage();
+        if (throwable instanceof NoSuchElementException) {
+            message = "Enter a stock symbol first!!";
+        }
         binding.errorMessage.setVisibility(View.VISIBLE);
-        binding.errorMessage.setText(throwable.toString());
+        binding.errorMessage.setText(message);
     }
 
     private void displayStockResults(StockInfoForSymbol stockInfoForSymbol) {

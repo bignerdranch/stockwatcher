@@ -1,7 +1,6 @@
 package com.bignerdranch.stockwatcher.model.service;
 
 
-import com.google.common.net.HttpHeaders;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.List;
@@ -16,6 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+import static com.google.common.net.HttpHeaders.CONTENT_TYPE;
+
 public class StockService {
 
     private final HttpLoggingInterceptor httpLoggingInterceptor;
@@ -25,6 +26,7 @@ public class StockService {
     interface StockServiceInterface {
         @GET("Quote/json")
         Observable<StockInfoResponse> stockInfo(@Query("symbol") String symbol);
+
         @GET("Lookup/json")
         Observable<List<StockSymbol>> lookupStock(@Query("input") String symbol);
     }
@@ -65,7 +67,7 @@ public class StockService {
                     Request request = chain
                             .request()
                             .newBuilder()
-                            .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                            .addHeader(CONTENT_TYPE, "application/json")
                             .build();
                     return chain.proceed(request);
                 });

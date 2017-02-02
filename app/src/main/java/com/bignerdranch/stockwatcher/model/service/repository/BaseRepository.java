@@ -29,7 +29,7 @@ abstract class BaseRepository {
         apiObservables.put(stockSymbol, observable);
     }
 
-    //remove cache for one symbol
+    //remove cache for just one symbol
     public <T> void removeCache(String symbol) {
         apiObservables.remove(symbol);
     }

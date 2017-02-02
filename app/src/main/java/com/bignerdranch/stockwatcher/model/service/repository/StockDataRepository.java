@@ -24,7 +24,6 @@ public class StockDataRepository extends BaseRepository {
         this.service = service;
     }
 
-    @SuppressWarnings("unchecked")
     public Observable<StockInfoForSymbol> getStockInfoForSymbol(String symbol) {
         Timber.i("method: %s, symbol: %s", CACHE_PREFIX_GET_STOCK_INFO_FOR_SYMBOL, symbol);
         Observable<StockInfoForSymbol> stockInfoForSymbolObservable = Observable.combineLatest(

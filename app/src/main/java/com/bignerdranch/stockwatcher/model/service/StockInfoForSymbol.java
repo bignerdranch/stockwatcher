@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class StockInfoForSymbol {
+
     private StockSymbol stockSymbol;
     private StockInfoResponse stockInfoResponse;
 }

@@ -10,14 +10,13 @@ import lombok.Setter;
 
 public abstract class RxFragment extends Fragment {
 
-    private static final java.lang.String EXTRA_RX_REQUEST_IN_PROGRESS = "EXTRA_RX_REQUEST_IN_PROGRESS";
+    private static final String EXTRA_RX_REQUEST_IN_PROGRESS = "EXTRA_RX_REQUEST_IN_PROGRESS";
 
     @Getter
     @Setter
     private boolean requestInProgress;
 
     @Getter
-    @Setter
     private CompositeDisposable compositeDisposable;
 
     @Override
@@ -51,5 +50,4 @@ public abstract class RxFragment extends Fragment {
     }
 
     public abstract void loadRxData();
-
 }

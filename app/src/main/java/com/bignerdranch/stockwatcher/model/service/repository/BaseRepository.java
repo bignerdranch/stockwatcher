@@ -29,7 +29,7 @@ abstract class BaseRepository {
         apiObservables.put(stockSymbol, observable);
     }
 
-    //remove cache for just one symbol
+    //remove cache for just one symbol // TODO: This return type isn't used?
     public <T> void removeCache(String symbol) {
         apiObservables.remove(symbol);
     }

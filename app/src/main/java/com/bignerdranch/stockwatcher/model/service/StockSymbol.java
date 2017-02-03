@@ -6,8 +6,10 @@ import lombok.Data;
 
 @Data
 public class StockSymbol {
+
     @SerializedName("Symbol")
     String symbol;
+
     @SerializedName("Name")
     String name;
 }

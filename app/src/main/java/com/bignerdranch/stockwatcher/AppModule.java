@@ -31,19 +31,16 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
     StockService provideStockService(Retrofit retrofit) {
         return new StockService(retrofit);
     }
 
     @Provides
-    @Singleton
     ServiceConfig provideServiceConfig() {
         return new ServiceConfig(STOCK_SERVICE_ENDPOINT);
     }
 
     @Provides
-    @Singleton
     Retrofit provideRetrofit(OkHttpClient client, ServiceConfig serviceConfig) {
         return new Retrofit.Builder()
                 .baseUrl(serviceConfig.getBaseServiceUrl())
@@ -54,7 +51,6 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
     OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor) {
         return new OkHttpClient.Builder()
                 .readTimeout(HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
@@ -65,7 +61,6 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
     HttpLoggingInterceptor provideLoggingInterceptor() {
         return new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
     }

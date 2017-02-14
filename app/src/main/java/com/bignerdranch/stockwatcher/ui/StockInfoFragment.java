@@ -31,7 +31,7 @@ public class StockInfoFragment extends RxFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        StockWatcherApplication.getAppComponent(getActivity()).inject(this);
+        StockWatcherApplication.getAppComponent(getContext()).inject(this);
         super.onCreate(savedInstanceState); // TODO: Is there a reason this is called second?
     }
 

@@ -66,8 +66,6 @@ public class StockInfoFragment extends RxFragment {
     public void loadRxData() {
         Observable.just(binding.tickerSymbol.getText().toString())
                 .filter(symbolText -> symbolText.length() > 0)
-                .singleOrError()
-                .toObservable()
                 .flatMap(s -> stockDataRepository.getStockInfoForSymbol(s))
                 .compose(RxUtil.applyUIDefaults(StockInfoFragment.this))
                 .subscribe(this::displayStockResults, this::displayErrors);
@@ -76,7 +74,7 @@ public class StockInfoFragment extends RxFragment {
     private void displayErrors(Throwable throwable) {
         String message = throwable.getMessage();
         if (throwable instanceof NoSuchElementException) {
-            message = "Enter a stock symbol first!!";
+            message = "Stock symbol not found";
         }
 
         binding.errorMessage.setVisibility(View.VISIBLE);

@@ -28,7 +28,10 @@ public class StockService {
         return service.stockInfo(symbol);
     }
 
-    public Observable<List<StockSymbol>> lookupStock(String symbol) {
-        return service.lookupStock(symbol);
+    public Observable<StockSymbol> lookupStock(String symbol) {
+        return service.lookupStock(symbol)
+                .concatMap(Observable::fromIterable)
+                .firstOrError()
+                .toObservable();
     }
 }

@@ -4,9 +4,7 @@ import com.bignerdranch.stockwatcher.model.service.StockInfoForSymbol;
 import com.bignerdranch.stockwatcher.model.service.StockInfoResponse;
 import com.bignerdranch.stockwatcher.model.service.StockService;
 import com.bignerdranch.stockwatcher.model.service.StockSymbol;
-import com.bignerdranch.stockwatcher.model.service.StockSymbolError;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -37,20 +35,11 @@ public class StockDataRepository extends BaseRepository {
     //stock info request, which depends on the first result from lookup stock request
     private Observable<StockInfoResponse> fetchStockInfoFromSymbol(String symbol) {
         return lookupStockSymbol(symbol)
-                .flatMap(stockSymbol -> getStockInfo(stockSymbol.getSymbol()));
+                .map(StockSymbol::getSymbol)
+                .flatMap(this::getStockInfo);
     }
 
-    //return a single symbol from the list of symbols, or an error to catch if not.
     private Observable<StockSymbol> lookupStockSymbol(String symbol) {
-        return lookupStockSymbols(symbol)
-                .doOnNext(stockSymbols -> {
-                    if (stockSymbols.isEmpty()) {
-                        throw new StockSymbolError(symbol);
-                    }
-                }).flatMap(Observable::fromIterable).take(1);
-    }
-
-    private Observable<List<StockSymbol>> lookupStockSymbols(String symbol) {
         Timber.i("%s, symbol: %s", CACHE_PREFIX_GET_STOCK_SYMBOLS, symbol);
 
         return cacheObservable(CACHE_PREFIX_GET_STOCK_SYMBOLS + symbol, service.lookupStock(symbol).cache());

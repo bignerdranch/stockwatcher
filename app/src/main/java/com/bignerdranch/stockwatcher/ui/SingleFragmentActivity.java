@@ -15,7 +15,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySingleFragmentBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_single_fragment);
+        ActivitySingleFragmentBinding binding
+                = DataBindingUtil.setContentView(this, R.layout.activity_single_fragment);
+
         if (savedInstanceState == null) {
             Fragment fragment = createFragment();
             getSupportFragmentManager().beginTransaction()

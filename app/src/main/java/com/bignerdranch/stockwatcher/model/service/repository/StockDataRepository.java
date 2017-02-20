@@ -30,12 +30,14 @@ public class StockDataRepository extends BaseRepository {
                 lookupStockSymbol(symbol),
                 fetchStockInfoFromSymbol(symbol),
                 StockInfoForSymbol::new);
+
         return cacheObservable(CACHE_PREFIX_GET_STOCK_INFO_FOR_SYMBOL + symbol, stockInfoForSymbolObservable);
     }
 
     //stock info request, which depends on the first result from lookup stock request
     private Observable<StockInfoResponse> fetchStockInfoFromSymbol(String symbol) {
-        return lookupStockSymbol(symbol).flatMap(stockSymbol -> getStockInfo(stockSymbol.getSymbol()));
+        return lookupStockSymbol(symbol)
+                .flatMap(stockSymbol -> getStockInfo(stockSymbol.getSymbol()));
     }
 
     //return a single symbol from the list of symbols, or an error to catch if not.
@@ -50,6 +52,7 @@ public class StockDataRepository extends BaseRepository {
 
     private Observable<List<StockSymbol>> lookupStockSymbols(String symbol) {
         Timber.i("%s, symbol: %s", CACHE_PREFIX_GET_STOCK_SYMBOLS, symbol);
+
         return cacheObservable(CACHE_PREFIX_GET_STOCK_SYMBOLS + symbol, service.lookupStock(symbol).cache());
     }
 
@@ -57,6 +60,7 @@ public class StockDataRepository extends BaseRepository {
         Timber.i("method: %s, symbol: %s", CACHE_PREFIX_GET_STOCK_INFO, symbol);
         Observable<StockInfoResponse> observableToCache = service
                 .stockInfo(symbol).delay(3, TimeUnit.SECONDS).cache();
+
         return cacheObservable(CACHE_PREFIX_GET_STOCK_INFO + symbol, observableToCache);
     }
 

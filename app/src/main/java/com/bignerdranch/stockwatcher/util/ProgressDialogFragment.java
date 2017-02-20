@@ -21,7 +21,7 @@ public class ProgressDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        ProgressDialog dialog = new ProgressDialog(getActivity());
+        ProgressDialog dialog = new ProgressDialog(getContext());
         String message = getArguments().getString(ARG_MESSAGE);
         dialog.setMessage(message);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

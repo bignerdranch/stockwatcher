@@ -31,8 +31,8 @@ public class StockInfoFragment extends RxFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        StockWatcherApplication.getAppComponent(getActivity()).inject(this);
-        super.onCreate(savedInstanceState);
+        StockWatcherApplication.getAppComponent(getContext()).inject(this);
+        super.onCreate(savedInstanceState); // TODO: Is there a reason this is called second?
     }
 
     @Nullable
@@ -45,6 +45,7 @@ public class StockInfoFragment extends RxFragment {
             binding.errorMessage.setVisibility(View.GONE);
             loadRxData();
         });
+
         binding.tickerSymbol.setOnEditorActionListener((v, actionId, event) -> {
             if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 loadRxData();
@@ -52,10 +53,12 @@ public class StockInfoFragment extends RxFragment {
             }
             return false;
         });
+
         binding.clearCacheButton.setOnClickListener(v -> {
             stockDataRepository.clearCache();
             Toast.makeText(getContext(), "observable cache cleared!", Toast.LENGTH_LONG).show();
         });
+
         return binding.getRoot();
     }
 
@@ -63,11 +66,11 @@ public class StockInfoFragment extends RxFragment {
     public void loadRxData() {
         Observable.just(binding.tickerSymbol.getText().toString())
                 .filter(symbolText -> symbolText.length() > 0)
-                .singleOrError().toObservable()
+                .singleOrError()
+                .toObservable()
                 .flatMap(s -> stockDataRepository.getStockInfoForSymbol(s))
                 .compose(RxUtil.applyUIDefaults(StockInfoFragment.this))
                 .subscribe(this::displayStockResults, this::displayErrors);
-
     }
 
     private void displayErrors(Throwable throwable) {
@@ -75,6 +78,7 @@ public class StockInfoFragment extends RxFragment {
         if (throwable instanceof NoSuchElementException) {
             message = "Enter a stock symbol first!!";
         }
+
         binding.errorMessage.setVisibility(View.VISIBLE);
         binding.errorMessage.setText(message);
     }

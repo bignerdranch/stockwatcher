@@ -30,7 +30,7 @@ abstract class BaseRepository {
     }
 
     //remove cache for just one symbol
-    public <T> void removeCache(String symbol) {
+    public void removeCache(String symbol) {
         apiObservables.remove(symbol);
     }
 

@@ -22,3 +22,5 @@
 ### Setup:
 - Insure you are on Android Studio 2.3, and that you have added the Lombok plugin to android studio.
 - To install the lombok plugin, navigate to Preferences... > Plugins, type in "Lombok" and click install
+
+Further reading : [The RxJava Repository Pattern](https://www.bignerdranch.com/blog/the-rxjava-repository-pattern)

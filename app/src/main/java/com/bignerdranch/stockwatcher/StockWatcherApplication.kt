@@ -5,7 +5,7 @@ import android.content.Context
 
 class StockWatcherApplication : Application() {
 
-    private var appComponent: AppComponent? = null
+    private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -26,7 +26,7 @@ class StockWatcherApplication : Application() {
 
         fun getAppComponent(context: Context): AppComponent {
             val stockWatcherApplication = get(context.applicationContext)
-            return stockWatcherApplication.appComponent!!
+            return stockWatcherApplication.appComponent
         }
     }
 

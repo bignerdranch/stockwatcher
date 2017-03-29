@@ -16,7 +16,7 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivitySingleFragmentBinding>(this, R.layout.activity_single_fragment)
 
-        if (savedInstanceState == null) {
+        savedInstanceState?.let {
             val fragment = createFragment()
             supportFragmentManager.beginTransaction()
                     .add(binding.fragmentContainer.id, fragment)

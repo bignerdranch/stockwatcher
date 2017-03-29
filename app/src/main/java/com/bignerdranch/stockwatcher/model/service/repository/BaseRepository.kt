@@ -13,22 +13,13 @@ abstract class BaseRepository {
     }
 
     fun <T> cacheObservable(symbol: String, observable: Observable<T>): Observable<T> {
-        var cachedObservable: Observable<T>? = apiObservables.get(symbol) as Observable<T>
-        if (cachedObservable != null) {
-            return cachedObservable
-        }
-        cachedObservable = observable
+        val cachedObservable = apiObservables.get(symbol) ?: observable
         updateCache(symbol, cachedObservable)
-        return cachedObservable
+        return cachedObservable as Observable<T>
     }
 
     private fun <T> updateCache(stockSymbol: String, observable: Observable<T>) {
         apiObservables.put(stockSymbol, observable)
-    }
-
-    //remove cache for just one symbol
-    fun removeCache(symbol: String) {
-        apiObservables.remove(symbol)
     }
 
     //clear cache for all symbols

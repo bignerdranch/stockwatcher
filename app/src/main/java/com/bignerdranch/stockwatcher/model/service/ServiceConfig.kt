@@ -1,3 +1,4 @@
 package com.bignerdranch.stockwatcher.model.service
 
-class ServiceConfig(val baseServiceUrl: String)
+data class ServiceConfig(val baseServiceUrl: String)
+

@@ -11,11 +11,9 @@ import java.util.concurrent.TimeUnit
 
 class StockDataRepository(private val service: StockService) : BaseRepository() {
 
-    companion object {
-        private val CACHE_PREFIX_GET_STOCK_INFO = "stockInfo"
-        private val CACHE_PREFIX_GET_STOCK_INFO_FOR_SYMBOL = "getStockInfoForSymbol"
-        private val CACHE_PREFIX_GET_STOCK_SYMBOLS = "lookupStockSymbols"
-    }
+    private val CACHE_PREFIX_GET_STOCK_INFO_FOR_SYMBOL = "getStockInfoForSymbol"
+    private val CACHE_PREFIX_GET_STOCK_SYMBOLS = "lookupStockSymbols"
+    private val CACHE_PREFIX_GET_STOCK_INFO = "stockInfo"
 
     fun getStockInfoForSymbol(symbol: String): Observable<StockInfoForSymbol> {
         Timber.i("method: %s, symbol: %s", CACHE_PREFIX_GET_STOCK_INFO_FOR_SYMBOL, symbol)
@@ -25,10 +23,9 @@ class StockDataRepository(private val service: StockService) : BaseRepository() 
         return cacheObservable(CACHE_PREFIX_GET_STOCK_INFO_FOR_SYMBOL + symbol, combineLatest)
     }
 
-    //stock info request, which depends on the first result from lookup stock request
     private fun fetchStockInfoFromSymbol(symbol: String): Observable<StockInfoResponse> {
         return lookupStockSymbol(symbol)
-                .flatMap { stockSymbol -> getStockInfo(stockSymbol.symbol!!) }
+                .flatMap { stockSymbol -> getStockInfo(stockSymbol.symbol) }
     }
 
     private fun lookupStockSymbol(symbol: String): Observable<StockSymbol> {
@@ -45,5 +42,6 @@ class StockDataRepository(private val service: StockService) : BaseRepository() 
         val observableToCache = service.stockInfo(symbol).delay(3, TimeUnit.SECONDS).cache()
         return cacheObservable(CACHE_PREFIX_GET_STOCK_INFO + symbol, observableToCache)
     }
+
 
 }

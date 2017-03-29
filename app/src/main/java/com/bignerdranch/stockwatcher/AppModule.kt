@@ -17,6 +17,10 @@ import javax.inject.Singleton
 @Module
 internal class AppModule {
 
+    private val STOCK_SERVICE_ENDPOINT = "http://dev.markitondemand.com/MODApis/Api/v2/"
+    private val HTTP_READ_TIMEOUT = 60
+    private val HTTP_CONNECT_TIMEOUT = 60
+
     @Provides
     @Singleton
     fun provideStockDataRepository(stockService: StockService): StockDataRepository {
@@ -58,10 +62,4 @@ internal class AppModule {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    companion object {
-
-        private val STOCK_SERVICE_ENDPOINT = "http://dev.markitondemand.com/MODApis/Api/v2/"
-        private val HTTP_READ_TIMEOUT = 60
-        private val HTTP_CONNECT_TIMEOUT = 60
-    }
 }

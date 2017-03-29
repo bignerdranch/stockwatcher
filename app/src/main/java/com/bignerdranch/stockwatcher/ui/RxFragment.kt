@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class RxFragment : Fragment() {
+    private val EXTRA_RX_REQUEST_IN_PROGRESS = "EXTRA_RX_REQUEST_IN_PROGRESS"
 
     var requestInProgress = false
 
@@ -13,8 +14,7 @@ abstract class RxFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
-            RxFragment.Foo.EXTRA_RX_REQUEST_IN_PROGRESS
+        savedInstanceState?.let {
             requestInProgress = savedInstanceState.getBoolean(EXTRA_RX_REQUEST_IN_PROGRESS, false)
         }
     }
@@ -37,8 +37,4 @@ abstract class RxFragment : Fragment() {
     }
 
     abstract fun loadRxData()
-
-    companion object Foo {
-        private val EXTRA_RX_REQUEST_IN_PROGRESS = "EXTRA_RX_REQUEST_IN_PROGRESS"
-    }
 }

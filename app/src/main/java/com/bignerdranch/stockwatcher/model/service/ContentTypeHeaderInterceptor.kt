@@ -6,11 +6,13 @@ import okhttp3.Response
 
 class ContentTypeHeaderInterceptor : Interceptor {
 
+    private val APPLICATION_JSON = "application/json"
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain
                 .request()
                 .newBuilder()
-                .addHeader(CONTENT_TYPE, "application/json")
+                .addHeader(CONTENT_TYPE, APPLICATION_JSON)
                 .build()
 
         return chain.proceed(request)

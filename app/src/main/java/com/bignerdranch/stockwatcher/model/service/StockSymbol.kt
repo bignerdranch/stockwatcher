@@ -1,10 +1,8 @@
 package com.bignerdranch.stockwatcher.model.service
 
-class StockSymbol {
+import com.squareup.moshi.Json
 
-//    @SerializedName("Symbol")
-    internal var symbol: String? = null
-
-//    @SerializedName("Name")
-    internal var name: String? = null
-}
+data class StockSymbol(
+        @Json(name = "Symbol") val symbol: String,
+        @Json(name = "Name") val name: String
+)

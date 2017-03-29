@@ -8,17 +8,14 @@ import android.support.v4.app.DialogFragment
 class ProgressDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = ProgressDialog(context)
-        val message = arguments.getString(ARG_MESSAGE)
-        dialog.setMessage(message)
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        return dialog
+        return ProgressDialog(context).apply {
+            setMessage(arguments.getString(ARG_MESSAGE))
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        }
     }
 
     companion object {
-
         private val ARG_MESSAGE = "message"
-
         fun newInstance(message: String): ProgressDialogFragment {
             val args = Bundle()
             args.putString(ARG_MESSAGE, message)

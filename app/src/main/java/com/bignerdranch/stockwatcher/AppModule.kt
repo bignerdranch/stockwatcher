@@ -14,12 +14,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+private val STOCK_SERVICE_ENDPOINT = "http://dev.markitondemand.com/MODApis/Api/v2/"
+private val HTTP_READ_TIMEOUT_SECONDS = 60
+private val HTTP_CONNECT_TIMEOUT_SECONDS = 60
+
 @Module
 internal class AppModule {
 
-    private val STOCK_SERVICE_ENDPOINT = "http://dev.markitondemand.com/MODApis/Api/v2/"
-    private val HTTP_READ_TIMEOUT = 60
-    private val HTTP_CONNECT_TIMEOUT = 60
 
     @Provides
     @Singleton
@@ -50,8 +51,8 @@ internal class AppModule {
     @Provides
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-                .readTimeout(HTTP_READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
-                .connectTimeout(HTTP_CONNECT_TIMEOUT.toLong(), TimeUnit.SECONDS)
+                .readTimeout(HTTP_READ_TIMEOUT_SECONDS.toLong(), TimeUnit.SECONDS)
+                .connectTimeout(HTTP_CONNECT_TIMEOUT_SECONDS.toLong(), TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(ContentTypeHeaderInterceptor())
                 .build()

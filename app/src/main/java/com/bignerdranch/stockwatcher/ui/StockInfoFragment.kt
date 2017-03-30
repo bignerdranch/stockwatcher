@@ -22,6 +22,7 @@ class StockInfoFragment : RxFragment() {
     @Inject lateinit var stockDataRepository: StockDataRepository
     private lateinit var binding: FragmentStockInfoBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StockWatcherApplication.getAppComponent(context).inject(this)

@@ -36,21 +36,19 @@
                 android:id="@+id/fetch_data_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fetch Stock Data"
-                />
+                android:text="Fetch Stock Data"/>
 
             <Button
                 android:id="@+id/clear_cache_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clear Observable Cache"
-                />
+                android:text="Clear Observable Cache"/>
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/stock_value"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            />
+            android:layout_height="200dp"/>
     </LinearLayout>
 </layout>

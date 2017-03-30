@@ -8,10 +8,10 @@ object DialogUtils {
 
     internal fun showProgressDialog(fragmentManager: FragmentManager, message: String) {
         fragmentManager.findFragmentByTag(TAG_DIALOG_PROGRESS)?.let {
-            hideProgressDialog(fragmentManager)
+                hideProgressDialog(fragmentManager)
         }
         ProgressDialogFragment.newInstance(message).apply {
-            isCancelable = false
+            isCancelable = true
             show(fragmentManager, TAG_DIALOG_PROGRESS)
         }
     }

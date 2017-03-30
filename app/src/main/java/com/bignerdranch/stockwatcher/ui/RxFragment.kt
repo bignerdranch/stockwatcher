@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 
 import io.reactivex.disposables.CompositeDisposable
 
-val EXTRA_RX_REQUEST_IN_PROGRESS_CONST = "EXTRA_RX_REQUEST_IN_PROGRESS_CONST"
+private val EXTRA_RX_REQUEST_IN_PROGRESS_CONST = "EXTRA_RX_REQUEST_IN_PROGRESS_CONST"
 
 abstract class RxFragment : Fragment() {
 

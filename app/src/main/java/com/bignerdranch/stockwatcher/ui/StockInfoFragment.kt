@@ -22,7 +22,6 @@ class StockInfoFragment : RxFragment() {
     @Inject lateinit var stockDataRepository: StockDataRepository
     private lateinit var binding: FragmentStockInfoBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StockWatcherApplication.getAppComponent(context).inject(this)
@@ -48,13 +47,15 @@ class StockInfoFragment : RxFragment() {
     }
 
     override fun loadRxData() {
-        Observable.just(binding.tickerSymbol.text.toString())
-                .applyUIDefaults(this)
+        Observable
+                .just(binding.tickerSymbol.text.toString())
                 .filter(String::isNotEmpty)
                 .singleOrError()
                 .toObservable()
                 .flatMap<Any> { s -> stockDataRepository.getStockInfoForSymbol(s) }
+                .applyUIDefaults(this)
                 .subscribe({ this.displayStockResults(it as StockInfoForSymbol) }, { this.displayErrors(it) })
+
     }
 
     private fun displayErrors(throwable: Throwable) {

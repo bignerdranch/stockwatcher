@@ -15,7 +15,6 @@ private val CACHE_PREFIX_GET_STOCK_INFO = "stockInfo"
 
 class StockDataRepository(private val service: StockService) : BaseRepository() {
 
-
     fun getStockInfoForSymbol(symbol: String): Observable<StockInfoForSymbol> {
         Timber.i("method: %s, symbol: %s", CACHE_PREFIX_GET_STOCK_INFO_FOR_SYMBOL, symbol)
         val combineLatest = Observable.combineLatest(lookupStockSymbol(symbol),

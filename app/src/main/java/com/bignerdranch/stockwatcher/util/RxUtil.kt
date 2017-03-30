@@ -7,24 +7,24 @@ import io.reactivex.schedulers.Schedulers
 
 private val LOADING_MESSAGE = "Loading"
 
-fun <T> Observable<T>.applyUIDefaults(rxFragment: RxFragment): Observable<T> =
-        this.addToCompositeDisposable(rxFragment)
-                .applySchedulers()
-                .applyRequestStatus(rxFragment)
-                .showLoadingDialog(rxFragment)
 
-private fun <T> Observable<T>.applySchedulers(): Observable<T> = this.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+fun <T> Observable<T>.applyUIDefaults(fragment: RxFragment): Observable<T> =
+        this.compose { it.addToCompositeDisposable(fragment) }
+                .compose { it.applySchedulers() }
+                .compose { it.applyRequestStatus(fragment) }
+                .compose { it.showLoadingDialog(fragment) }
+
+fun <T> Observable<T>.applySchedulers(): Observable<T> =
+        subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
 
 private fun <T> Observable<T>.addToCompositeDisposable(rxFragment: RxFragment): Observable<T> =
-        this.doOnSubscribe {
-            rxFragment.compositeDisposable.add(it)
-        }
+        doOnSubscribe { rxFragment.compositeDisposable.add(it) }
 
 private fun <T> Observable<T>.applyRequestStatus(rxFragment: RxFragment): Observable<T> =
-        this.doOnSubscribe { rxFragment.requestInProgress = true }
+        doOnSubscribe { rxFragment.requestInProgress = true }
                 .doOnTerminate { rxFragment.requestInProgress = false }
 
 private fun <T> Observable<T>.showLoadingDialog(rxFragment: RxFragment): Observable<T> =
-        this.doOnSubscribe { DialogUtils.showProgressDialog(rxFragment.fragmentManager, LOADING_MESSAGE) }
+        doOnSubscribe { DialogUtils.showProgressDialog(rxFragment.fragmentManager, LOADING_MESSAGE) }
                 .doOnTerminate { DialogUtils.hideProgressDialog(rxFragment.fragmentManager) }

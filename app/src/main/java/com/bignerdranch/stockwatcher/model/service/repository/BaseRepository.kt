@@ -22,7 +22,6 @@ abstract class BaseRepository {
         apiObservables.put(stockSymbol, observable)
     }
 
-    //clear cache for all symbols
     fun clearCache() {
         apiObservables = createLruCache()
     }

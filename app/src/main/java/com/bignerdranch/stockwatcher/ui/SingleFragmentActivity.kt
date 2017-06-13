@@ -11,11 +11,10 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (savedInstanceState == null) {
+        savedInstanceState?.let {
             val fragment = createFragment()
             supportFragmentManager.beginTransaction()
-                    .add(fragment_container.getId(), fragment)
+                    .add(fragment_container.id, fragment)
                     .commit()
         }
     }

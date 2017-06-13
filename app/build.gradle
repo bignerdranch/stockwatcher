@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.bignerdranch.stockwatcher"
         minSdkVersion 19
@@ -29,13 +29,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //support libraries
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     //dependency injection
-    compile 'com.google.dagger:dagger:2.8'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    compile 'com.google.dagger:dagger:2.9'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     provided 'org.glassfish:javax.annotation:10.0-b28'
-    compile 'com.google.auto.factory:auto-factory:1.0-beta3'
     //code generation
     provided 'org.projectlombok:lombok:1.16.12'
     annotationProcessor 'org.projectlombok:lombok:1.16.12'
@@ -45,6 +44,6 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.2'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     //logging
-    compile 'com.jakewharton.timber:timber:4.3.1'
+    compile 'com.jakewharton.timber:timber:4.5.1'
 
 }

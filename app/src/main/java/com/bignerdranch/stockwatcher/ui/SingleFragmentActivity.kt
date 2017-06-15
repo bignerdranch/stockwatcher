@@ -1,9 +1,11 @@
 package com.bignerdranch.stockwatcher.ui
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_single_fragment.*
+import com.bignerdranch.stockwatcher.R
+import com.bignerdranch.stockwatcher.databinding.ActivitySingleFragmentBinding
 
 abstract class SingleFragmentActivity : AppCompatActivity() {
 
@@ -11,10 +13,12 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        savedInstanceState?.let {
+
+        val binding = DataBindingUtil.setContentView<ActivitySingleFragmentBinding>(this, R.layout.activity_single_fragment)
+        savedInstanceState ?: let {
             val fragment = createFragment()
             supportFragmentManager.beginTransaction()
-                    .add(fragment_container.id, fragment)
+                    .add(binding.fragmentContainer.id, fragment)
                     .commit()
         }
     }
